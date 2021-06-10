@@ -1,0 +1,23 @@
+<html>
+
+<head>
+    <title>Latest Polls</title>
+</head>
+
+<body>
+<h2>These are the latest questions: </h2>
+<ol>
+    {% for q in latest_question_list %}
+        <li>
+            <p><a href = '{% url "polls:detail" q.id %}' >{{q.q_text}} </a></p>
+            <p><a href = '{% url "polls:vote" q.id %}' >vote</a></p>
+            <p><a href = '{% url "polls:results" q.id %}' >results</a></p>
+        </li>
+    {% endfor %}
+</ol>
+
+<p>
+    <a href = '../'>BACK</a>
+</p>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<html>
+
+<head>
+    <title>{{poll.q_text}}</title>
+</head>
+
+<body>
+<h2>{{poll.q_text}} </h2>
+<ol>
+    {% for c in poll.choice_set.all %}
+        <li>
+            {{c.choice_text}}  
+        </li>
+    {% endfor %}
+</ol>
+
+<p><a href = '{% url "polls:vote" poll.id %}' >vote</a></p>
+<p><a href = '{% url "polls:results" poll.id %}' >results</a></p>
+
+<p>
+    <a href = '../'>BACK</a>
+</p>
+</body>
+</html>
