@@ -14,7 +14,7 @@ class question(models.Model):
         return self.q_text
 
     def was_published_recently(self):
-        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+        return timezone.now() >= self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 
     # def get_absolute_url(self):
     #     return reverse('polls:detail', kwargs={'pk': self.id})

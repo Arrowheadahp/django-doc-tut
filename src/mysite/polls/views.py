@@ -10,36 +10,15 @@ from django.views.generic import (
     DetailView, 
     ListView,
 )
-
-# def index(request):
-#     latest_question_list = question.objects.order_by('-pub_date')[:5][::-1]
-#     # return HttpResponse(', '.join([q.q_text for q in latest_question_list]))
-#     return render(request, 'polls/index.html', context={'latest_question_list': latest_question_list})
-
-
-# def detail(request, pk):
-#     # return HttpResponse(f'You\'re looking at poll number {pk}')
-#     q = get_object_or_404(question, id=pk)
-#     return render(request, 'polls/detail.html', context={'poll': q})
-
-
-
-# def results(request, pk):
-#     q = get_object_or_404(question, id=pk)
-#     return render(request, 'polls/results.html', context={'poll': q})
-
-
-
-
-
-
+from django.utils import timezone
 
 
 
 class indexView(ListView):
     template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'
-    queryset = question.objects.all().order_by('-pub_date')[:5][::-1]
+    # queryset = question.objects.all().order_by('-pub_date')[:5][::-1]
+    queryset = question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5][::-1]
 
 class detailView(DetailView):
     template_name = 'polls/detail.html'
@@ -71,3 +50,22 @@ def vote(request, pk):
         return HttpResponseRedirect(reverse('polls:results', kwargs={'pk': q.id}))
     
     return render(request, 'polls/vote.html', context={'question': q})
+
+
+# def index(request):
+#     latest_question_list = question.objects.order_by('-pub_date')[:5][::-1]
+#     # return HttpResponse(', '.join([q.q_text for q in latest_question_list]))
+#     return render(request, 'polls/index.html', context={'latest_question_list': latest_question_list})
+
+
+# def detail(request, pk):
+#     # return HttpResponse(f'You\'re looking at poll number {pk}')
+#     q = get_object_or_404(question, id=pk)
+#     return render(request, 'polls/detail.html', context={'poll': q})
+
+
+
+# def results(request, pk):
+#     q = get_object_or_404(question, id=pk)
+#     return render(request, 'polls/results.html', context={'poll': q})
+
